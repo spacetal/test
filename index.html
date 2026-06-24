@@ -11,12 +11,6 @@
 </head>
 <body>
 <canvas id="particles-canvas" aria-hidden="true"></canvas>
-<button id="menuToggle" class="hamburger" aria-label="פתח תפריט ניווט" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-<div id="drawerOverlay" class="drawer-overlay"></div>
 <div id="splash" role="status" aria-label="טוען את האפליקציה">
   <div class="splash-inner">
     <div class="splash-hack-label">🏆 &nbsp;HACKATHON 2026</div>
@@ -43,7 +37,8 @@
   </div>
 </div>
 <div class="app">
-  <aside class="sidebar">
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeMobileMenu()" aria-hidden="true"></div>
+  <aside class="sidebar" id="appSidebar">
     <div class="brand">
       <div class="brand-logo-row">
         <svg class="brand-icon" width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +67,6 @@
     <button id="side-workflow" class="nav-btn" onclick="go('workflow')"><span class="label">🧭 Workflow</span><span class="dot"></span></button>
     <button id="side-employee" class="nav-btn" onclick="go('employee')"><span class="label">🙋 פורטל עובד</span><span class="dot"></span></button>
     <button id="side-activity" class="nav-btn" onclick="go('activity')"><span class="label">📋 Activity</span><span class="dot"></span></button>
-    <button id="side-integrations" class="nav-btn" onclick="go('integrations')"><span class="label">🔌 אינטגרציות</span><span class="dot"></span></button>
     <button id="side-docs" class="nav-btn" onclick="go('docs')"><span class="label">📄 Documents</span><span class="dot"></span></button>
     <button id="side-productivity" class="nav-btn" onclick="go('productivity')"><span class="label">🎓 Productivity</span><span class="dot"></span></button>
     <button id="side-offboarding" class="nav-btn" onclick="go('offboarding')"><span class="label">🚪 Offboarding</span><span class="dot"></span></button>
@@ -81,7 +75,12 @@
   </aside>
   <main class="main">
     <div class="topbar">
-      <div class="row"><span class="chip live">● Live Demo</span><span class="chip ai">AI / GuidER</span><span class="chip wow">UI</span><span class="chip">עובדציקל Employee Lifecycle</span><span class="chip hack">🏆 Hackathon 2026</span></div>
+      <button id="menuToggle" class="menu-toggle" type="button" aria-label="פתח תפריט ניווט" aria-expanded="false" aria-controls="appSidebar" onclick="toggleMobileMenu()">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+      <div class="row"><span class="chip live">● Live Demo</span><span class="chip ai">AI / GuidER</span><span class="chip wow">UI</span><span class="chip">Employee Lifecycle</span><span class="chip hack">🏆 Hackathon 2026</span></div>
       <div class="row"><div class="avatar-card"><div class="avatar small avatar-photo-frame" data-avatar-role="manager" data-avatar-initial="מ" aria-label="תמונת מנהל"><div class="avatar-status"></div></div><div><div style="font-size:12px;color:var(--muted);">מנהל מגייס</div><strong style="font-size:13px;">Manager View</strong></div></div><button class="button primary" onclick="startDemoMode()">▶ Demo Mode</button><button class="button primary" onclick="startStoryMode()">🎬 Story Mode</button><button class="button secondary" onclick="stopAutoModes()">⏸ עצור</button><button class="button ghost" onclick="resetDemo()">↺ איפוס</button></div>
     </div>
     <div class="content">
@@ -103,7 +102,7 @@
       </section>
       <section id="manager" class="screen">
         <div class="panel">
-          <div class="row" style="justify-content:space-between;align-items:flex-start;margin-bottom:16px;"><div><div class="kicker">Manager Workspace</div><h2>סביבת עבודה עשירה וברורה</h2><p class="muted">מסך שליטה מלא למנהל: פרטי עובד, Routing למערכות קצה, ציוד, מסמכים, בקשות, חונכים והכשרה.</p></div><div id="smartRecommendationBox" class="card" style="min-width:320px;background:rgba(41,209,127,.12);border-color:rgba(41,209,127,.22);">המלצה חכמה: בחרי תפקיד כדי לראות התאמות, בקשות, מסמכים וחסמים.</div></div>
+          <div class="row" style="justify-content:space-between;align-items:flex-start;margin-bottom:16px;"><div><div class="kicker">Manager Workspace</div><h2>מסלול עובד מקצה לקצה</h2><p class="muted">מסך שליטה מלא למנהל: פרטי עובד, Routing למערכות קצה, ציוד, מסמכים, בקשות, חונכים והכשרה.</p></div><div id="smartRecommendationBox" class="card" style="min-width:320px;background:rgba(41,209,127,.12);border-color:rgba(41,209,127,.22);">המלצה חכמה: בחרי תפקיד כדי לראות התאמות, בקשות, מסמכים וחסמים.</div></div>
           <div class="grid-2" style="margin-bottom:16px;"><div class="avatar-card"><div class="avatar small avatar-photo-frame" data-avatar-role="manager" data-avatar-initial="מ" aria-label="תמונת מנהל"><div class="avatar-status"></div></div><div><strong>מנהל מגייס</strong><br><span class="muted">Owner לתהליך, approvals, orchestration</span></div></div><div class="avatar-card"><div class="avatar avatar-photo-frame" data-avatar-role="employee" data-avatar-initial="ד" aria-label="תמונת העובדת דנה כהן"><div class="avatar-status"></div></div><div><strong id="managerEmpName">דנה כהן</strong><br><span class="muted" id="managerEmpId">Employee ID 83145 • עובדת בדמו</span></div></div></div><div class="kicker" style="margin:14px 0 8px;">בחר עובד לטיפול</div><div id="employeePickerArea" class="row" style="margin-bottom:16px;flex-wrap:wrap;gap:10px;"></div>
           <div class="tabs"><button class="button secondary tab-btn active" data-tab="profile">פרופיל עובד</button><button class="button secondary tab-btn" data-tab="access">מערכות וציוד</button><button class="button secondary tab-btn" data-tab="preboarding">Pre-boarding</button><button class="button secondary tab-btn" data-tab="documents">מסמכים</button><button class="button secondary tab-btn" data-tab="requests">בקשות במערכות קצה</button></div>
           <div id="tab-profile" class="tab-pane active"><div class="manager-grid"><div class="field"><label for="roleSelect">תפקיד</label><select id="roleSelect"><option value="">בחר תפקיד</option><option value="mis">מיישמת מערכות / SAP</option><option value="prod">עובדת בפס ייצור</option></select><div id="roleHint" class="hint">בחרי תפקיד כדי לטעון מערכות, ציוד, Routing משימות ומסמכים מתאימים.</div></div><div class="field"><label>שם עובד</label><input id="employeeName" value=""></div><div class="field"><label>תיאור תפקיד</label><input id="employeeRole" value=""></div><div class="field"><label>מספר עובד</label><input id="employeeNumber" value=""></div><div class="field"><label>מייל</label><input id="employeeEmail" value=""></div><div class="field"><label>טלפון</label><input id="employeePhone" value=""></div><div class="field"><label>תאריך תחילת עבודה</label><input id="employeeStartDate" value=""></div><div class="field"><label>מיקום עבודה</label><input id="workLocation" value=""></div></div></div>
@@ -134,7 +133,7 @@
           <span id="ratingThanks" class="rating-thanks is-hidden">✅ תודה! הדירוג נשלח בהצלחה.</span>
         </div>
       </div></section>
-      <section id="activity" class="screen"><div class="panel"><div class="kicker">Activity & Tasks</div><h2>בקשות, חסמים והתקדמות בזמן אמת</h2><p class="muted">לכל פריט מוצגים אחוז ביצוע, owner, blocker וקישור לבקשה שנפתחה במערכת הקצה.</p><div id="activityBox"></div></div></section>
+      <section id="activity" class="screen"><div class="panel"><div class="kicker">Activity & Tasks</div><h2 id="activityTitle">פיד עדכונים</h2><p class="muted">לכל פריט מוצגים אחוז ביצוע, owner, blocker וקישור לבקשה שנפתחה במערכת הקצה.</p><div id="activityBox"></div></div></section>
       <section id="integrations" class="screen"><div class="panel"><div class="kicker">Integration Landscape</div><h2>האינטגרציה היא לב המערכת</h2><p class="muted">AIRFLOW1 פועלת כשכבת Orchestration בין ActiveOne, Airflow, Airnow, SNOW, SAP, CRM, Security ועוד.</p><div id="integrationGrid" class="integration-grid"></div></div></section>
       <section id="docs" class="screen"><div class="panel"><div class="kicker">Documents Center</div><h2>מסמכים, טפסים וקישורים שהעובדת צריכה למלא</h2><p class="muted">מרכז מסמכים מרוכז עם לינקים, תאריכי יעד וסטטוס לכל מסמך. זהו חלק מחוויית מעטפת מחבקת לעובד ובקרה מלאה למנהל.</p><div id="documentsCenter" class="docs-grid"></div></div></section>
       <section id="productivity" class="screen"><div class="panel"><div class="kicker">Day 1 to Full Productivity</div><h2>מעבר מיום ראשון לתפקוד מלא</h2><div class="grid-3"><div class="card"><h4>חונך מקצועי</h4><p class="muted">טרם הוגדר • נדרש לעדכן במייל חוזר</p></div><div class="card"><h4>חונך חברתי</h4><p class="muted">טרם הוגדר • מומלץ להגדיר לפני יום ראשון</p></div><div class="card"><h4>מדד מוכנות</h4><p class="muted">Access 67% • Docs 40% • Training 20%</p></div></div><div class="grid-2" style="margin-top:16px;"><div class="card"><h4>הדרכות חובה</h4><ul><li>הדרכת בטיחות – ממתין</li><li>היכרות עם Airflow – ממתין</li><li>מערכת הסעות – ממתין</li><li>פורמט חניכה והכשרה – פתוח</li></ul></div><div class="card"><h4>חסרים קריטיים</h4><ul><li>יוזר פנימי מלא</li><li>תג עובד קבוע</li><li>טופס בטיחות חתום</li></ul></div></div></div></section>
@@ -142,8 +141,7 @@
     </div>
   </main>
 </div>
-<div id="guider" class="floating-guider">השלב הבא: פתיחת עובד</div>
-<div class="floating-bot-shell"><button id="botToggle" class="bot-toggle" type="button" aria-label="פתח את הצ'אט של הבוט" aria-expanded="false">🤖</button><div id="botPanel" class="floating-bot is-hidden"><input id="q" placeholder="שאל שאלה"><button class="button primary" style="width:100%;" id="askBtn">שאל</button><div id="a" style="margin-top:8px;font-size:13px;"></div></div></div>
+<div class="floating-bot-shell"><button id="botToggle" class="bot-toggle" type="button" aria-label="פתח את הצ'אט של הבוט" aria-expanded="false"><svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="10" width="24" height="17" rx="5" fill="currentColor" opacity="0.18"/><rect x="4" y="10" width="24" height="17" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="19" r="2.5" fill="currentColor"/><circle cx="20" cy="19" r="2.5" fill="currentColor"/><rect x="13" y="23" width="6" height="2" rx="1" fill="currentColor" opacity="0.7"/><line x1="16" y1="10" x2="16" y2="5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="4" r="1.8" fill="currentColor"/><rect x="1" y="16" width="3" height="5" rx="1.5" fill="currentColor" opacity="0.6"/><rect x="28" y="16" width="3" height="5" rx="1.5" fill="currentColor" opacity="0.6"/></svg></button><div id="botPanel" class="floating-bot is-hidden"><input id="q" placeholder="שאל שאלה"><button class="button primary" style="width:100%;" id="askBtn">שאל</button><div id="a" style="margin-top:8px;font-size:13px;"></div></div></div>
 <script src="app.js"></script>
 </body>
 </html>

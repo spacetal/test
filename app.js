@@ -361,26 +361,7 @@ const storyScenes = [
     "לבסוף, Day 1 to Full Productivity מסכם את המוכנות והחסרים – ומאפשר ניהול רציף גם עד ליציאה מסודרת במידת הצורך.",
   ],
 ];
-const avatarPhotoPools = {
-  employee: Array.from(
-    { length: 12 },
-    (_, idx) => `https://randomuser.me/api/portraits/women/${30 + idx}.jpg`,
-  ),
-  manager: Array.from(
-    { length: 12 },
-    (_, idx) => `https://randomuser.me/api/portraits/men/${40 + idx}.jpg`,
-  ),
-};
-const avatarPhotoSelection = {
-  employee:
-    avatarPhotoPools.employee[
-      Math.floor(Math.random() * avatarPhotoPools.employee.length)
-    ],
-  manager:
-    avatarPhotoPools.manager[
-      Math.floor(Math.random() * avatarPhotoPools.manager.length)
-    ],
-};
+
 function qs(s) {
   return document.querySelector(s);
 }
@@ -406,19 +387,13 @@ function buildAvatarFallback(initial) {
 }
 function assignRoleAvatars() {
   qsa("[data-avatar-role]").forEach((avatar) => {
-    const role = avatar.dataset.avatarRole;
     const initial = avatar.dataset.avatarInitial || "?";
     const status = avatar.querySelector(".avatar-status");
     const photo = document.createElement("img");
 
     photo.className = "avatar-photo";
     photo.alt = avatar.getAttribute("aria-label") || "תמונת פרופיל";
-    photo.referrerPolicy = "no-referrer";
-    photo.src = avatarPhotoSelection[role] || buildAvatarFallback(initial);
-    photo.onerror = () => {
-      photo.onerror = null;
-      photo.src = buildAvatarFallback(initial);
-    };
+    photo.src = buildAvatarFallback(initial);
 
     avatar.textContent = "";
     avatar.appendChild(photo);
@@ -441,7 +416,29 @@ function go(key) {
   qsa(".nav-btn").forEach((el) => el.classList.remove("active"));
   const btn = qs("#side-" + key);
   if (btn) btn.classList.add("active");
+  closeMobileMenu();
   update();
+}
+function openMobileMenu() {
+  document.body.classList.add("menu-open");
+  const toggle = qs("#menuToggle");
+  if (toggle) toggle.setAttribute("aria-expanded", "true");
+  const overlay = qs("#sidebarOverlay");
+  if (overlay) overlay.setAttribute("aria-hidden", "false");
+}
+function closeMobileMenu() {
+  document.body.classList.remove("menu-open");
+  const toggle = qs("#menuToggle");
+  if (toggle) toggle.setAttribute("aria-expanded", "false");
+  const overlay = qs("#sidebarOverlay");
+  if (overlay) overlay.setAttribute("aria-hidden", "true");
+}
+function toggleMobileMenu() {
+  if (document.body.classList.contains("menu-open")) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
 }
 function mapStatusClass(status) {
   if (status === "הושלם") return "done";
@@ -546,6 +543,9 @@ function renderRequests() {
     .join("");
 }
 function renderActivity() {
+  const empName = employees[currentEmployeeIdx].name;
+  const activityTitle = qs("#activityTitle");
+  if (activityTitle) activityTitle.textContent = `פיד עדכונים — ${empName}`;
   const activity = [
     {
       name: "פתיחת הרשאות במערכת",
@@ -776,6 +776,7 @@ function loadEmployee(idx) {
   qs("#workLocation").value = emp.location;
   renderSpotlight();
   renderEmployeePicker();
+  renderActivity();
   update();
 }
 function selectEmployee(idx) {
@@ -809,8 +810,6 @@ function update() {
   qs("#bar").style.width = percent + "%";
   qs("#progress").innerText = percent + "%";
   const next = workflow.find((s) => s.status !== "הושלם");
-  qs("#guider").innerText =
-    `השלב הבא: ${next ? next.name : workflow.length ? "הכול הושלם ✅" : "בחרי תפקיד והתחילי למלא פרטים"} | מיקום: ${qs("#workLocation").value || "--"}`;
   qs("#employeeWelcome").innerText =
     `ברוכה הבאה ${qs("#employeeName").value || "לעובדת החדשה"} 👋`;
   qs("#employeeRoleText").innerText = `תפקיד: ${roleLabel()}`;
@@ -910,7 +909,7 @@ function startDemoMode() {
   triggerWowBurst();
   resetDemo();
   //selectedSystems = ["ניבה", "NOW", "FTS", "SAP MRC", "SAP PORTAL"];
-   selectedSystems = ["בינה", "NOW", "FTS", "SAP MRC", "SAP PORTAL"],
+   selectedSystems: ["בינה", "NOW", "FTS", "SAP MRC", "SAP PORTAL"],
   applyEquipmentRecommendation();
   qsa("#systemsPool input").forEach(
     (cb) => (cb.checked = selectedSystems.includes(cb.value)),
@@ -1150,49 +1149,7 @@ function animateCounters() {
     setTimeout(function() { splash.remove(); animateCounters(); }, 950);
   }, 2600);
 })();
-/* ─── Optimized Mobile Drawer Engine ─── */
-(function initDrawer() {
-  const toggle   = qs('#menuToggle');
-  const sidebar  = document.querySelector('.sidebar');
-  const overlay  = qs('#drawerOverlay');
-  if (!toggle || !sidebar || !overlay) return;
 
-  function openDrawer(e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    sidebar.classList.add('drawer-open');
-    overlay.classList.add('active');
-    toggle.classList.add('open');
-    toggle.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeDrawer(e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    sidebar.classList.remove('drawer-open');
-    overlay.classList.remove('active');
-    toggle.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  // Bind to touch triggers instantly, avoiding canvas interaction interference
-  ['click', 'touchstart'].forEach(eventType => {
-    toggle.addEventListener(eventType, function(e) {
-      sidebar.classList.contains('drawer-open') ? closeDrawer(e) : openDrawer(e);
-    }, { passive: false });
-
-    overlay.addEventListener(eventType, closeDrawer, { passive: false });
-  });
-
-  // Automatically dismiss the menu drawer if a functional link gets tapped
-  document.querySelectorAll('.nav-btn').forEach(function(btn) {
-    ['click', 'touchstart'].forEach(eventType => {
-      btn.addEventListener(eventType, function(e) {
-        if (window.innerWidth <= 1200) closeDrawer(e);
-      });
-    });
-  });
-})();
 /* ─── WOW burst + confetti ─── */
 function triggerWowBurst() {
   const burst = document.createElement('div');
