@@ -131,7 +131,7 @@ const rolesMap = {
         name: "פתיחת עובד",
         owner: "מנהל מגייס",
         due: "היום",
-        system: "Airflow-one",
+        system: "AIRFLOW1",
         notes: "פתיחת תהליך onboarding",
         status: "ממתין",
         blocker: "-",
@@ -175,7 +175,7 @@ const rolesMap = {
         name: "חניכה והכשרה",
         owner: "HR / מנהל",
         due: "יום לפני התחלה",
-        system: "Airflow-one",
+        system: "AIRFLOW1",
         notes: "מינוי חונך מקצועי וחברתי + תכנית הכשרה",
         status: "ממתין",
         blocker: "חונך מקצועי טרם מונה",
@@ -186,7 +186,7 @@ const rolesMap = {
         name: "קהילות",
         owner: "HR / מנהל",
         due: "יום לפני התחלה",
-        system: "Airflow-one",
+        system: "AIRFLOW1",
         notes: "שיבוץ העובדת לקהילות רלוונטיות והיכרות עם ערוצי שיתוף",
         status: "ממתין",
         blocker: "קהילות רלוונטיות טרם הוגדרו",
@@ -197,7 +197,7 @@ const rolesMap = {
         name: "נהלי עובד",
         owner: "HR",
         due: "יום לפני התחלה",
-        system: "Airflow-one",
+        system: "AIRFLOW1",
         notes: "חשיפה לנהלים, מדיניות והנחיות עובד",
         status: "ממתין",
         blocker: "נהלי עובד טרם נשלחו לעיון",
@@ -208,7 +208,7 @@ const rolesMap = {
         name: "Day 1 to Full Productivity",
         owner: "מנהל ישיר",
         due: "30 יום",
-        system: "Airflow-one",
+        system: "AIRFLOW1",
         notes: "מעקב עד תפקוד מלא",
         status: "ממתין",
         blocker: "Access + training incomplete",
@@ -227,7 +227,7 @@ const rolesMap = {
         name: "פתיחת עובד",
         owner: "מנהל מגייס",
         due: "היום",
-        system: "Airflow-one",
+        system: "AIRFLOW1",
         notes: "פתיחת תהליך onboarding",
         status: "ממתין",
         blocker: "-",
@@ -271,7 +271,7 @@ const rolesMap = {
         name: "Day 1 to Full Productivity",
         owner: "מנהל קו",
         due: "21 יום",
-        system: "Airflow-one",
+        system: "AIRFLOW1",
         notes: "קליטה מלאה לתחנה",
         status: "ממתין",
         blocker: "הדרכה תפעולית טרם הושלמה",
@@ -282,9 +282,54 @@ const rolesMap = {
     hint: "לתפקיד זה לא מוצגות מערכות IT מרכזיות, והדגש הוא על ציוד, בטיחות, אישור כניסה והדרכה תפעולית.",
   },
 };
+const employees = [
+  {
+    name: "דנה כהן",
+    role: "מיישמת SAP",
+    number: "83145",
+    email: "dana.cohen@deltaone.co.il",
+    phone: "052-5559876",
+    startDate: "2026-07-01",
+    startFormatted: "01/07/2026",
+    location: "מטה מרכזי",
+    roleKey: "mis",
+    access: 60, docs: 40, training: 20,
+    initial: "ד",
+    alerts: ["ממתין לחתימת קב״ט", "טופס בטיחות חסר"],
+  },
+  {
+    name: "יוסי לוי",
+    role: "מנהל מוצר",
+    number: "83201",
+    email: "yossi.levi@deltaone.co.il",
+    phone: "054-3334455",
+    startDate: "2026-07-15",
+    startFormatted: "15/07/2026",
+    location: "מטה מרכזי",
+    roleKey: "mis",
+    access: 30, docs: 20, training: 0,
+    initial: "י",
+    alerts: ["מחשב טרם הוקצה", "הרשאות NOW ממתינות"],
+  },
+  {
+    name: "מיכל גולן",
+    role: "מפתחת Frontend",
+    number: "83218",
+    email: "michal.golan@deltaone.co.il",
+    phone: "050-7778899",
+    startDate: "2026-08-01",
+    startFormatted: "01/08/2026",
+    location: "מרכז פיתוח",
+    roleKey: "prod",
+    access: 10, docs: 0, training: 0,
+    initial: "מ",
+    alerts: ["תהליך בתחילתו", "ממתין לאישור HR"],
+  },
+];
 let selectedSystems = [],
   selectedEquipment = [],
   workflow = [],
+  currentEmployeeIdx = 0,
   isStory = false,
   storyIdx = 0,
   storyTimer = null,
@@ -293,7 +338,7 @@ let selectedSystems = [],
 const storyScenes = [
   [
     "dashboard",
-    "ברוכים הבאים ל-Airflow-one – שכבת Orchestration שמאחדת מערכות, מסמכים, בקשות והדרכות לחוויית עובד אחת.",
+    "ברוכים הבאים ל-AIRFLOW1 – שכבת Orchestration שמאחדת מערכות, מסמכים, בקשות והדרכות לחוויית עובד אחת.",
   ],
   [
     "manager",
@@ -660,13 +705,81 @@ function updateTimelineBox() {
     .join("");
 }
 function fillDemoEmployeeDetails() {
-  qs("#employeeName").value = "דנה כהן";
-  qs("#employeeRole").value = "מיישמת SAP";
-  qs("#employeeNumber").value = "83145";
-  qs("#employeeEmail").value = "dana.cohen@deltaone.co.il";
-  qs("#employeePhone").value = "052-5559876";
-  qs("#employeeStartDate").value = "2026-07-01";
-  qs("#workLocation").value = "מטה מרכזי";
+  const emp = employees[currentEmployeeIdx];
+  qs("#employeeName").value = emp.name;
+  qs("#employeeRole").value = emp.role;
+  qs("#employeeNumber").value = emp.number;
+  qs("#employeeEmail").value = emp.email;
+  qs("#employeePhone").value = emp.phone;
+  qs("#employeeStartDate").value = emp.startDate;
+  qs("#workLocation").value = emp.location;
+}
+function renderSpotlight() {
+  const panel = qs("#spotlightPanel");
+  if (!panel) return;
+  const dividers = employees.map((emp, idx) => {
+    const isActive = idx === currentEmployeeIdx;
+    const accessDeg = Math.round((emp.access / 100) * 360);
+    return (
+      `<div style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:14px;transition:background 0.18s;${isActive ? "background:rgba(92,200,255,0.09);box-shadow:inset 0 0 0 1px rgba(92,200,255,0.2);" : ""}${idx < employees.length - 1 ? "border-bottom:1px solid var(--line);margin-bottom:2px;" : ""}">` +
+      `<div style="width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--primary),var(--success));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;box-shadow:0 4px 12px rgba(92,200,255,0.25);">${emp.initial}</div>` +
+      `<div style="flex:1;min-width:0;">` +
+        `<div style="font-weight:700;font-size:15px;">${emp.name}</div>` +
+        `<div class="muted" style="font-size:12px;">${emp.role} • מס׳ ${emp.number} • התחלה: ${emp.startFormatted}</div>` +
+        `<div style="display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;">` +
+          `<span class="pill" style="font-size:11px;padding:3px 8px;">Access ${emp.access}%</span>` +
+          `<span class="pill" style="font-size:11px;padding:3px 8px;">Docs ${emp.docs}%</span>` +
+        `</div>` +
+      `</div>` +
+      `<button class="button ${isActive ? "primary" : "secondary"}" style="font-size:12px;padding:8px 12px;flex-shrink:0;" onclick="selectEmployee(${idx});go('manager')">${isActive ? "● פעיל" : "פתח"}</button>` +
+      `</div>`
+    );
+  });
+  panel.innerHTML = '<div class="kicker">עובדים בתהליך</div>' + dividers.join("");
+}
+function renderEmployeePicker() {
+  const area = qs("#employeePickerArea");
+  if (!area) return;
+  area.innerHTML = employees.map((emp, idx) => {
+    const isActive = idx === currentEmployeeIdx;
+    return (
+      `<div class="avatar-card" style="cursor:pointer;flex:1;min-width:160px;transition:background 0.18s,border-color 0.18s;${isActive ? "background:rgba(92,200,255,0.12);border-color:rgba(92,200,255,0.35);" : ""}" onclick="selectEmployee(${idx})">` +
+      `<div style="width:38px;height:38px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--primary),var(--success));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff;position:relative;">` +
+        emp.initial +
+        `<div style="position:absolute;width:10px;height:10px;border-radius:50%;background:${isActive ? "var(--success)" : "rgba(255,255,255,0.22)"};border:2px solid #0f172a;bottom:0;left:0;"></div>` +
+      `</div>` +
+      `<div style="min-width:0;">` +
+        `<strong style="font-size:13px;">${emp.name}</strong>` +
+        `<div class="muted" style="font-size:11px;">${emp.role} • ${emp.number}</div>` +
+      `</div>` +
+      (isActive ? `<span class="status done" style="font-size:11px;margin-right:auto;">פעיל ●</span>` : "") +
+      `</div>`
+    );
+  }).join("");
+  const nameEl = qs("#managerEmpName");
+  const idEl = qs("#managerEmpId");
+  const emp = employees[currentEmployeeIdx];
+  if (nameEl) nameEl.textContent = emp.name;
+  if (idEl) idEl.textContent = `Employee ID ${emp.number} • עובד בדמו`;
+}
+function loadEmployee(idx) {
+  currentEmployeeIdx = idx;
+  const emp = employees[idx];
+  qs("#roleSelect").value = emp.roleKey;
+  handleRoleChange();
+  qs("#employeeName").value = emp.name;
+  qs("#employeeRole").value = emp.role;
+  qs("#employeeNumber").value = emp.number;
+  qs("#employeeEmail").value = emp.email;
+  qs("#employeePhone").value = emp.phone;
+  qs("#employeeStartDate").value = emp.startDate;
+  qs("#workLocation").value = emp.location;
+  renderSpotlight();
+  renderEmployeePicker();
+  update();
+}
+function selectEmployee(idx) {
+  loadEmployee(idx);
 }
 function updateManagerTasks() {
   const box = qs("#managerRequestBox");
@@ -694,19 +807,7 @@ function update() {
     ? Math.round((done / workflow.length) * 100)
     : 0;
   qs("#bar").style.width = percent + "%";
-  const pctText = percent + "%";
-  qs("#progress").innerText = pctText;
-  // battery indicator
-  const fill = qs("#batteryFill");
-  if (fill) {
-    fill.style.width = pctText;
-    const color = percent >= 100 ? "#2fd98a"
-                : percent >= 60  ? "#5cc8ff"
-                : percent >= 30  ? "#ffc15e"
-                : "#ff7a7a";
-    fill.style.background = `linear-gradient(90deg, ${color}cc, ${color})`;
-    fill.style.boxShadow = `0 0 12px ${color}88`;
-  }
+  qs("#progress").innerText = percent + "%";
   const next = workflow.find((s) => s.status !== "הושלם");
   qs("#guider").innerText =
     `השלב הבא: ${next ? next.name : workflow.length ? "הכול הושלם ✅" : "בחרי תפקיד והתחילי למלא פרטים"} | מיקום: ${qs("#workLocation").value || "--"}`;
@@ -768,6 +869,7 @@ function openAuthorizationRequest() {
 }
 function resetDemo() {
   stopAutoModes();
+  currentEmployeeIdx = 0;
   securityMailSent = false;
   authorizationRequestOpened = false;
   fillDemoEmployeeDetails();
@@ -927,80 +1029,15 @@ qs("#askBtn").addEventListener("click", () => {
 });
 fillDemoEmployeeDetails();
 qs("#roleSelect").value = "mis";
-
-/* ─── Fixed Mobile drawer ─── */
-(function initDrawer() {
-  const toggle   = qs('#menuToggle');
-  const sidebar  = document.querySelector('.sidebar');
-  const overlay  = qs('#drawerOverlay');
-  if (!toggle || !sidebar || !overlay) return;
-
-  function openDrawer(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation(); // Stop event bubbling on touch screens
-    }
-    sidebar.classList.add('drawer-open');
-    overlay.classList.add('active');
-    toggle.classList.add('open');
-    toggle.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeDrawer(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    sidebar.classList.remove('drawer-open');
-    overlay.classList.remove('active');
-    toggle.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  // Handle both click and mobile touchstart smoothly
-  ['click', 'touchstart'].forEach(eventType => {
-    toggle.addEventListener(eventType, function(e) {
-      sidebar.classList.contains('drawer-open') ? closeDrawer(e) : openDrawer(e);
-    }, { passive: false });
-
-    overlay.addEventListener(eventType, closeDrawer, { passive: false });
-  });
-
-  // Close drawer when a nav item is tapped
-  document.querySelectorAll('.nav-btn').forEach(function(btn) {
-    ['click', 'touchstart'].forEach(eventType => {
-      btn.addEventListener(eventType, function(e) {
-        if (window.innerWidth <= 1200) {
-          closeDrawer(e);
-        }
-      });
-    });
-  });
-})();
 handleRoleChange();
-// Pre-complete first 6 of 8 steps so progress renders as 75% (teal zone)
-workflow.slice(0, 6).forEach(function(s) { s.status = "הושלם"; });
 renderDocuments();
 renderRequests();
 renderActivity();
 assignRoleAvatars();
 resetStoryPanel();
+renderSpotlight();
+renderEmployeePicker();
 update();
-// Demo override: display 78% for the POC presentation
-(function() {
-  var fill = qs('#batteryFill');
-  var pct  = qs('#progress');
-  var bar  = qs('#bar');
-  if (fill && pct) {
-    pct.innerText = '78%';
-    fill.style.width = '78%';
-    fill.style.background = 'linear-gradient(90deg, #5cc8ffcc, #5cc8ff)';
-    fill.style.boxShadow  = '0 0 12px #5cc8ff88';
-  }
-  if (bar) bar.style.width = '78%';
-})();
 
 /* ─── Star rating widget ─── */
 (function initRating() {
