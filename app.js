@@ -910,7 +910,7 @@ function startDemoMode() {
   triggerWowBurst();
   resetDemo();
   //selectedSystems = ["ניבה", "NOW", "FTS", "SAP MRC", "SAP PORTAL"];
-   selectedSystems: ["בינה", "NOW", "FTS", "SAP MRC", "SAP PORTAL"],
+   selectedSystems = ["בינה", "NOW", "FTS", "SAP MRC", "SAP PORTAL"],
   applyEquipmentRecommendation();
   qsa("#systemsPool input").forEach(
     (cb) => (cb.checked = selectedSystems.includes(cb.value)),
@@ -1150,7 +1150,49 @@ function animateCounters() {
     setTimeout(function() { splash.remove(); animateCounters(); }, 950);
   }, 2600);
 })();
+/* ─── Optimized Mobile Drawer Engine ─── */
+(function initDrawer() {
+  const toggle   = qs('#menuToggle');
+  const sidebar  = document.querySelector('.sidebar');
+  const overlay  = qs('#drawerOverlay');
+  if (!toggle || !sidebar || !overlay) return;
 
+  function openDrawer(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    sidebar.classList.add('drawer-open');
+    overlay.classList.add('active');
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    sidebar.classList.remove('drawer-open');
+    overlay.classList.remove('active');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  // Bind to touch triggers instantly, avoiding canvas interaction interference
+  ['click', 'touchstart'].forEach(eventType => {
+    toggle.addEventListener(eventType, function(e) {
+      sidebar.classList.contains('drawer-open') ? closeDrawer(e) : openDrawer(e);
+    }, { passive: false });
+
+    overlay.addEventListener(eventType, closeDrawer, { passive: false });
+  });
+
+  // Automatically dismiss the menu drawer if a functional link gets tapped
+  document.querySelectorAll('.nav-btn').forEach(function(btn) {
+    ['click', 'touchstart'].forEach(eventType => {
+      btn.addEventListener(eventType, function(e) {
+        if (window.innerWidth <= 1200) closeDrawer(e);
+      });
+    });
+  });
+})();
 /* ─── WOW burst + confetti ─── */
 function triggerWowBurst() {
   const burst = document.createElement('div');
