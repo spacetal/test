@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airflow-one WOW Export</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<div id="splash" role="status" aria-label="טוען את האפליקציה">
+  <div class="splash-inner">
+    <div class="splash-hack-label">🏆 &nbsp;HACKATHON 2026</div>
+    <div class="splash-logo-area">
+      <svg class="splash-icon" width="80" height="80" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="url(#splash-lg1)" stroke-width="1.5"/>
+        <circle cx="9" cy="20" r="4" fill="#5cc8ff" opacity="0.9"/>
+        <circle cx="31" cy="13" r="4" fill="#9d8bff" opacity="0.9"/>
+        <circle cx="20" cy="29" r="4" fill="#2fd98a" opacity="0.9"/>
+        <path d="M13 20 Q20 14 27 13" stroke="#5cc8ff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M27 15 Q24 22 20 29" stroke="#9d8bff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M16 24 Q12 26 9 20" stroke="#2fd98a" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <defs>
+          <linearGradient id="splash-lg1" x1="0" y1="0" x2="40" y2="40">
+            <stop offset="0%" stop-color="#5cc8ff"/>
+            <stop offset="100%" stop-color="#9d8bff"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="splash-title">Airflow<span class="splash-accent">-one</span></div>
+    <p class="splash-sub">One flow. Full control. Human experience.</p>
+    <div class="splash-loader"><div class="splash-loader-fill"></div></div>
+  </div>
+</div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo-row">
+        <svg class="brand-icon" width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="19" stroke="url(#brand-lg1)" stroke-width="1.5"/>
+          <circle cx="9" cy="20" r="4" fill="#5cc8ff" opacity="0.9"/>
+          <circle cx="31" cy="13" r="4" fill="#9d8bff" opacity="0.9"/>
+          <circle cx="20" cy="29" r="4" fill="#2fd98a" opacity="0.9"/>
+          <path d="M13 20 Q20 14 27 13" stroke="#5cc8ff" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M27 15 Q24 22 20 29" stroke="#9d8bff" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M16 24 Q12 26 9 20" stroke="#2fd98a" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <defs>
+            <linearGradient id="brand-lg1" x1="0" y1="0" x2="40" y2="40">
+              <stop offset="0%" stop-color="#5cc8ff"/>
+              <stop offset="100%" stop-color="#9d8bff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <h1>Airflow-one</h1>
+      </div>
+      <p>One flow. Full control. Human experience.</p>
+      <div class="hackathon-badge">🏆 HACKATHON 2026</div>
+    </div>
+    <div class="side-title">ניווט מהיר</div>
+    <button id="side-dashboard" class="nav-btn active" onclick="go('dashboard')"><span class="label">🏠 Dashboard</span><span class="dot"></span></button>
+    <button id="side-manager" class="nav-btn" onclick="go('manager')"><span class="label">👔 סביבת מנהל</span><span class="dot"></span></button>
+    <button id="side-workflow" class="nav-btn" onclick="go('workflow')"><span class="label">🧭 Workflow</span><span class="dot"></span></button>
+    <button id="side-employee" class="nav-btn" onclick="go('employee')"><span class="label">🙋 פורטל עובד</span><span class="dot"></span></button>
+    <button id="side-activity" class="nav-btn" onclick="go('activity')"><span class="label">📋 Activity</span><span class="dot"></span></button>
+    <button id="side-integrations" class="nav-btn" onclick="go('integrations')"><span class="label">🔌 אינטגרציות</span><span class="dot"></span></button>
+    <button id="side-docs" class="nav-btn" onclick="go('docs')"><span class="label">📄 Documents</span><span class="dot"></span></button>
+    <button id="side-productivity" class="nav-btn" onclick="go('productivity')"><span class="label">🎓 Productivity</span><span class="dot"></span></button>
+    <button id="side-offboarding" class="nav-btn" onclick="go('offboarding')"><span class="label">🚪 Offboarding</span><span class="dot"></span></button>
+    <div class="side-title">Health</div>
+    <div class="side-card">Enterprise WOW UI פעיל<br>Integrations Core פעיל<br>Routing Matrix מוצג<br>Documents Center זמין<br>Story Mode מוכן לדמו</div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="row"><span class="chip live">● Live Demo</span><span class="chip ai">AI / GuidER</span><span class="chip wow">WOW UI</span><span class="chip">עובדציקל Employee Lifecycle</span><span class="chip hack">🏆 Hackathon 2026</span></div>
+      <div class="row"><div class="avatar-card"><div class="avatar small avatar-photo-frame" data-avatar-role="manager" data-avatar-initial="מ" aria-label="תמונת מנהל"><div class="avatar-status"></div></div><div><div style="font-size:12px;color:var(--muted);">מנהל מגייס</div><strong style="font-size:13px;">Manager View</strong></div></div><button class="button primary" onclick="startDemoMode()">▶ Demo Mode</button><button class="button primary" onclick="startStoryMode()">🎬 Story Mode</button><button class="button secondary" onclick="stopAutoModes()">⏸ עצור</button><button class="button ghost" onclick="resetDemo()">↺ איפוס</button></div>
+    </div>
+    <div class="content">
+      <section id="dashboard" class="screen active">
+        <div class="panel hero">
+          <div><div class="kicker">Home Dashboard</div><h1>Control Tower לקליטה, פרודוקטיביות ויציאה</h1><p class="muted">Airflow-one מחברת בין מערכות, בקשות, מסמכים, חונכים, ציוד ואישורים — למסע עובד רציף מהיום הראשון ועד לתפקוד מלא.</p><div class="row" style="margin-top:18px;"><button class="button primary" onclick="go('manager')">המשך טיפול בדנה</button><button class="button secondary" onclick="go('workflow')">פתח Workflow</button><button class="button ghost" onclick="go('docs')">מרכז המסמכים</button></div></div>
+          <div class="grid-2"><div class="stat-card glow"><strong>12</strong><span>עובדים בתהליך</span></div><div class="stat-card"><strong>4</strong><span>מתחילים השבוע</span></div><div class="stat-card"><strong>7</strong><span>בקשות פתוחות</span></div><div class="stat-card"><strong>2</strong><span>חסמים קריטיים</span></div></div>
+        </div>
+        <div class="grid-3">
+          <div class="panel"><div class="kicker">Spotlight</div><div class="avatar-wrap" style="margin-bottom:12px;"><div class="avatar large avatar-photo-frame" data-avatar-role="employee" data-avatar-initial="ד" aria-label="תמונת העובדת דנה כהן"><div class="avatar-status"></div></div><div><h3 style="margin-bottom:4px;">דנה כהן</h3><div class="muted">מספר עובד 83145 • מיישמת SAP • התחלה: 01/07/2026</div></div></div><div class="row"><span class="pill">Access 60%</span><span class="pill">Docs 40%</span><span class="pill">Training 20%</span></div><div style="height:14px"></div><button class="button primary" onclick="go('manager')">פתח סביבת מנהל</button></div>
+          <div class="panel"><div class="kicker">Live Health</div><div class="grid-2"><div style="text-align:center"><div class="ring"><div class="ring-label">67%<span>Access</span></div></div></div><div style="text-align:center"><div class="ring" style="background:conic-gradient(var(--warning) 0deg,var(--warning) 144deg,rgba(255,255,255,.08) 144deg 360deg)"><div class="ring-label">40%<span>Docs</span></div></div></div></div></div>
+          <div class="panel"><div class="kicker">Needs Attention</div><div class="alert warn"><strong>ממתין לחתימת קב״ט</strong><div class="muted">ללא חתימת קב״ט לא ניתן להפיק יוזר פנימי מלא.</div></div><div class="alert danger"><strong>טופס בטיחות חסר</strong><div class="muted">השלמת Day 1 מחייבת טופס בטיחות חתום.</div></div><div class="alert success"><strong>טלפוניה נפתחה</strong><div class="muted">בקשת טלפוניה #AF-78112 נשלחה למערכת הקצה.</div></div></div>
+        </div>
+        <div class="grid-3">
+          <div class="panel"><div class="kicker">AI Alerts</div><ul><li>מומלץ לפתוח SAP CRM עבור דנה</li><li>יש למנות חונך מקצועי וחברתי</li><li>יש להשלים קישור להדרכת מערכת הסעות</li></ul></div>
+          <div class="panel"><div class="kicker">Open Requests</div><ul><li><a class="link" href="#/integrations/activeone/AO-10234">AO-10234</a> – ActiveOne – יוזר פנימי</li><li><a class="link" href="#/integrations/airnow/AN-88421">AN-88421</a> – Airnow – מחשב פנימי</li><li><a class="link" href="#/integrations/security/SEC-5512">SEC-5512</a> – Security – אישור כניסה זמני</li></ul></div>
+          <div class="panel"><div class="kicker">Required Documents</div><ul><li><a class="link" href="#/documents/DOC-001">טופס קליטת עובד חדש</a></li><li><a class="link" href="#/documents/DOC-002">טופס הדרכת בטיחות</a></li><li><a class="link" href="#/documents/DOC-004">פרטי ספק / כתובת</a></li></ul></div>
+        </div>
+        <div class="panel">
+          <div class="kicker">Active Employees</div>
+          <h3 style="margin:0 0 16px;">עובדים פעילים בתהליך קליטה</h3>
+          <div class="grid-3">
+            <div class="emp-card">
+              <div class="emp-card-top">
+                <div class="emp-avatar" style="background:linear-gradient(135deg,#5cc8ff,#9d8bff)">ד</div>
+                <div class="emp-card-info">
+                  <strong>דנה כהן</strong>
+                  <div class="muted">מיישמת SAP • מטה מרכזי</div>
+                </div>
+                <span class="status ready">בתהליך</span>
+              </div>
+              <div class="emp-meta">מסי 83145 • תחילת: 01/07/2026</div>
+              <div class="emp-battery-wrap">
+                <div class="emp-battery-fill" style="width:78%;background:linear-gradient(90deg,#5cc8ffcc,#5cc8ff);box-shadow:0 0 10px #5cc8ff88"></div>
+                <span class="emp-battery-pct">78%</span>
+              </div>
+              <div class="pill-row" style="margin-top:10px;">
+                <span class="pill">Access 60%</span><span class="pill">Docs 40%</span><span class="pill">Training 20%</span>
+              </div>
+            </div>
+            <div class="emp-card">
+              <div class="emp-card-top">
+                <div class="emp-avatar" style="background:linear-gradient(135deg,#9d8bff,#2fd98a)">י</div>
+                <div class="emp-card-info">
+                  <strong>יוסי לוי</strong>
+                  <div class="muted">מפתח Full Stack • R&D מרכז</div>
+                </div>
+                <span class="status ready">בתהליך</span>
+              </div>
+              <div class="emp-meta">מסי 74231 • תחילת: 15/07/2026</div>
+              <div class="emp-battery-wrap">
+                <div class="emp-battery-fill" style="width:45%;background:linear-gradient(90deg,#ffc15ecc,#ffc15e);box-shadow:0 0 10px #ffc15e88"></div>
+                <span class="emp-battery-pct">45%</span>
+              </div>
+              <div class="pill-row" style="margin-top:10px;">
+                <span class="pill">Access 35%</span><span class="pill">Docs 55%</span><span class="pill">Training 0%</span>
+              </div>
+            </div>
+            <div class="emp-card">
+              <div class="emp-card-top">
+                <div class="emp-avatar" style="background:linear-gradient(135deg,#ff7a7a,#ffc15e)">מ</div>
+                <div class="emp-card-info">
+                  <strong>מיכל ברק</strong>
+                  <div class="muted">מנהלת פרויקט ERP • מטה מרכזי</div>
+                </div>
+                <span class="status pending">Pre-boarding</span>
+              </div>
+              <div class="emp-meta">מסי 91002 • תחילת: 01/08/2026</div>
+              <div class="emp-battery-wrap">
+                <div class="emp-battery-fill" style="width:12%;background:linear-gradient(90deg,#ff7a7acc,#ff7a7a);box-shadow:0 0 10px #ff7a7a88"></div>
+                <span class="emp-battery-pct">12%</span>
+              </div>
+              <div class="pill-row" style="margin-top:10px;">
+                <span class="pill">Access 10%</span><span class="pill">Docs 15%</span><span class="pill">Training 0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="manager" class="screen">
+        <div class="panel">
+          <div class="row" style="justify-content:space-between;align-items:flex-start;margin-bottom:16px;"><div><div class="kicker">Manager Workspace</div><h2>סביבת עבודה עשירה וברורה</h2><p class="muted">מסך שליטה מלא למנהל: פרטי עובד, Routing למערכות קצה, ציוד, מסמכים, בקשות, חונכים והכשרה.</p></div><div id="smartRecommendationBox" class="card" style="min-width:320px;background:rgba(41,209,127,.12);border-color:rgba(41,209,127,.22);">המלצה חכמה: בחרי תפקיד כדי לראות התאמות, בקשות, מסמכים וחסמים.</div></div>
+          <div class="grid-2" style="margin-bottom:16px;"><div class="avatar-card"><div class="avatar small avatar-photo-frame" data-avatar-role="manager" data-avatar-initial="מ" aria-label="תמונת מנהל"><div class="avatar-status"></div></div><div><strong>מנהל מגייס</strong><br><span class="muted">Owner לתהליך, approvals, orchestration</span></div></div><div class="avatar-card"><div class="avatar avatar-photo-frame" data-avatar-role="employee" data-avatar-initial="ד" aria-label="תמונת העובדת דנה כהן"><div class="avatar-status"></div></div><div><strong>דנה כהן</strong><br><span class="muted">Employee ID 83145 • עובדת בדמו</span></div></div></div>
+          <div class="tabs"><button class="button secondary tab-btn active" data-tab="profile">פרופיל עובד</button><button class="button secondary tab-btn" data-tab="access">מערכות וציוד</button><button class="button secondary tab-btn" data-tab="preboarding">Pre-boarding</button><button class="button secondary tab-btn" data-tab="documents">מסמכים</button><button class="button secondary tab-btn" data-tab="requests">בקשות במערכות קצה</button></div>
+          <div id="tab-profile" class="tab-pane active"><div class="manager-grid"><div class="field"><label for="roleSelect">תפקיד</label><select id="roleSelect"><option value="">בחר תפקיד</option><option value="mis">מיישמת מערכות / SAP</option><option value="prod">עובדת בפס ייצור</option></select><div id="roleHint" class="hint">בחרי תפקיד כדי לטעון מערכות, ציוד, Routing משימות ומסמכים מתאימים.</div></div><div class="field"><label>שם עובד</label><input id="employeeName" value=""></div><div class="field"><label>תיאור תפקיד</label><input id="employeeRole" value=""></div><div class="field"><label>מספר עובד</label><input id="employeeNumber" value=""></div><div class="field"><label>מייל</label><input id="employeeEmail" value=""></div><div class="field"><label>טלפון</label><input id="employeePhone" value=""></div><div class="field"><label>תאריך תחילת עבודה</label><input id="employeeStartDate" value=""></div><div class="field"><label>מיקום עבודה</label><input id="workLocation" value=""></div></div></div>
+          <div id="tab-access" class="tab-pane"><div class="grid-2"><div class="field"><label>מערכות רלוונטיות לעובדת</label><div id="systemsPool" class="check-grid"></div><div id="systemsSummary" class="summary-box">לא נבחרו עדיין מערכות</div></div><div class="field"><label>ציוד נדרש לעובדת</label><div class="check-grid equipment-pool"><label class="choice"><input type="checkbox" value="מחשב"> מחשב</label><label class="choice"><input type="checkbox" value="מסך"> מסך</label><label class="choice"><input type="checkbox" value="אוזניות"> אוזניות</label><label class="choice"><input type="checkbox" value="כסא"> כסא</label><label class="choice"><input type="checkbox" value="שולחן"> שולחן</label><label class="choice"><input type="checkbox" value="טלפון"> טלפון</label></div><div id="equipmentSummary" class="summary-box">לא נבחר עדיין ציוד</div></div></div></div>
+          <div id="tab-preboarding" class="tab-pane"><div class="grid-2"><div class="card"><div id="securityMailStatus" class="status pending">⏳ ממתין</div><h4>מייל לביטחון / HR / POC</h4><p class="muted">שליחה אוטומטית להיערכות לקליטה, תדריך ביטחון, אישור כניסה ותחילת סיווג.</p><button id="securityMailBtn" class="button secondary">שלח מייל תיאום</button></div><div class="card"><div id="userRequestStatus" class="status pending">⏳ ממתין</div><h4>פתיחת פנייה אוטומטית להרשאות</h4><p class="muted">נפתחת בממשק ActiveOne / Airflow לאחר שמולאו פרטי החובה. קישור דמי לבקשה יוצג אוטומטית.</p><button id="openAuthRequestBtn" class="button secondary">פתח פנייה להרשאות</button><div class="hint">נדרש אישור HR + מנהל + קב״ט למתן יוזר פנימי מלא.</div></div></div><div id="managerRequestBox" class="card" style="display:none;background:rgba(41,209,127,.12);border-color:rgba(41,209,127,.24);"></div></div>
+          <div id="tab-documents" class="tab-pane"><div id="docsBox" class="docs-grid"></div></div>
+          <div id="tab-requests" class="tab-pane"><div id="requestsBox" class="requests-grid"></div></div>
+          <div class="row" style="margin-top:18px;"><button id="fillDemoBtn" class="button primary">מלא דוגמה אוטומטית</button><button id="startProcessBtn" class="button primary">צור עובד</button></div>
+        </div>
+      </section>
+      <section id="workflow" class="screen"><div class="panel"><div class="workflow-grid"><div><div class="kicker">Workflow Control</div><h2>Flow ויזואלי אינטגרטיבי</h2><p class="muted">לכל שלב מוצגים Owner, מערכת קצה, blocker וקישור דמי לבקשה הרלוונטית.</p><div id="steps" class="workflow-flow"></div><div class="progress"><div id="bar" class="progress-bar"></div></div></div><div><div class="avatar-card" style="margin-bottom:14px;"><div class="avatar large avatar-photo-frame" data-avatar-role="employee" data-avatar-initial="ד" aria-label="תמונת העובדת דנה כהן"><div class="avatar-status"></div></div><div><strong style="font-size:18px;">דנה כהן</strong><br><span class="muted">Employee ID 83145 • מסלול Day 1 to Full Productivity</span></div></div><div class="grid-3"><div class="summary-card" id="summaryEmployee">עובדת: --</div><div class="summary-card" id="summaryRole">תפקיד: --</div><div class="summary-card" id="summarySystems">מערכות: --</div><div class="summary-card" id="summaryEquipment">ציוד: --</div><div class="summary-card" id="summaryTasks">סטטוס pre-boarding: --</div><div class="summary-card">GuidER: Next Best Action פעיל</div></div><div style="height:14px"></div><div class="kicker">Progress Feed</div><div id="timelineBox" class="timeline"></div></div></div></div></section>
+      <section id="employee" class="screen"><div class="panel"><div class="avatar-wrap" style="margin-bottom:16px;"><div class="avatar large avatar-photo-frame" data-avatar-role="employee" data-avatar-initial="ד" aria-label="תמונת העובדת דנה כהן"><div class="avatar-status"></div></div><div><h2 id="employeeWelcome" style="margin-bottom:4px;">ברוכה הבאה דנה כהן 👋</h2><div id="employeeRoleText" class="muted">תפקיד: --</div></div></div><div class="grid-3"><div class="card"><h4>התקדמות אישית</h4>
+        <div class="battery-wrap">
+          <div class="battery-body" id="batteryBody">
+            <div class="battery-fill" id="batteryFill"></div>
+            <span class="battery-pct" id="progress">0%</span>
+          </div>
+          <div class="battery-tip"></div>
+        </div>
+        <p class="muted" style="margin-top:12px;">GuidER מסביר כל רגע מה השלב הבא ולמי לפנות.</p></div><div class="card"><h4>מערכות שיוקצו</h4><p id="employeeSystems" class="muted">--</p></div><div class="card"><h4>ציוד שיוכן</h4><p id="employeeEquipment" class="muted">--</p></div></div><div class="grid-3" style="margin-top:16px;"><div class="card"><h4>פרטי קליטה</h4><p id="employeeMeta" class="muted">תחילת עבודה: -- | מייל: -- | טלפון: --</p></div><div class="card"><h4>מסמכים למילוי</h4><div id="employeeDocs"></div></div><div class="card"><h4>יום ראשון / מעטפת מחבקת</h4><p class="muted">מנהל ישיר, HR, ביטחון, חונך מקצועי וחונך חברתי מלווים אותך דרך המסע.</p></div></div></div>
+      <div class="panel rating-panel">
+        <div class="kicker">דירוג חוויית הקליטה</div>
+        <h3 style="margin:0 0 6px;">איך תדרג/י את חוויית ה-Onboarding עד כה?</h3>
+        <p class="muted" style="margin:0 0 18px;font-size:13px;">הדירוג שלך עוזר לנו לשפר את התהליך לכלל העובדים.</p>
+        <div class="star-row" id="starRow" role="radiogroup" aria-label="דירוג כוכבים">
+          <button type="button" class="star-btn" data-val="1" aria-label="כוכב 1">★</button>
+          <button type="button" class="star-btn" data-val="2" aria-label="כוכב 2">★</button>
+          <button type="button" class="star-btn" data-val="3" aria-label="כוכב 3">★</button>
+          <button type="button" class="star-btn" data-val="4" aria-label="כוכב 4">★</button>
+          <button type="button" class="star-btn" data-val="5" aria-label="כוכב 5">★</button>
+        </div>
+        <div id="starLabel" class="star-label"></div>
+        <textarea id="ratingComment" class="rating-textarea" placeholder="הערה קצרה (אופציונלי)..." maxlength="300" rows="3"></textarea>
+        <div class="rating-actions">
+          <button type="button" class="button primary" id="submitRatingBtn">שלח דירוג</button>
+          <span id="ratingThanks" class="rating-thanks is-hidden">✅ תודה! הדירוג נשלח בהצלחה.</span>
+        </div>
+      </div></section>
+      <section id="activity" class="screen"><div class="panel"><div class="kicker">Activity & Tasks</div><h2>בקשות, חסמים והתקדמות בזמן אמת</h2><p class="muted">לכל פריט מוצגים אחוז ביצוע, owner, blocker וקישור לבקשה שנפתחה במערכת הקצה.</p><div id="activityBox"></div></div></section>
+      <section id="integrations" class="screen"><div class="panel"><div class="kicker">Integration Landscape</div><h2>האינטגרציה היא לב המערכת</h2><p class="muted">Airflow-one פועלת כשכבת Orchestration בין ActiveOne, Airflow, Airnow, SNOW, SAP, CRM, Security ועוד.</p><div id="integrationGrid" class="integration-grid"></div></div></section>
+      <section id="docs" class="screen"><div class="panel"><div class="kicker">Documents Center</div><h2>מסמכים, טפסים וקישורים שהעובדת צריכה למלא</h2><p class="muted">מרכז מסמכים מרוכז עם לינקים, תאריכי יעד וסטטוס לכל מסמך. זהו חלק מחוויית מעטפת מחבקת לעובד ובקרה מלאה למנהל.</p><div id="documentsCenter" class="docs-grid"></div></div></section>
+      <section id="productivity" class="screen"><div class="panel"><div class="kicker">Day 1 to Full Productivity</div><h2>מעבר מיום ראשון לתפקוד מלא</h2><div class="grid-3"><div class="card"><h4>חונך מקצועי</h4><p class="muted">טרם הוגדר • נדרש לעדכן במייל חוזר</p></div><div class="card"><h4>חונך חברתי</h4><p class="muted">טרם הוגדר • מומלץ להגדיר לפני יום ראשון</p></div><div class="card"><h4>מדד מוכנות</h4><p class="muted">Access 67% • Docs 40% • Training 20%</p></div></div><div class="grid-2" style="margin-top:16px;"><div class="card"><h4>הדרכות חובה</h4><ul><li>הדרכת בטיחות – ממתין</li><li>היכרות עם Airflow – ממתין</li><li>מערכת הסעות – ממתין</li><li>פורמט חניכה והכשרה – פתוח</li></ul></div><div class="card"><h4>חסרים קריטיים</h4><ul><li>יוזר פנימי מלא</li><li>תג עובד קבוע</li><li>טופס בטיחות חתום</li></ul></div></div></div></section>
+      <section id="offboarding" class="screen"><div class="panel"><div class="kicker">Offboarding / Exit Registration</div><h2>רישום יציאה כללי + Clearance Board</h2><p class="muted">מסך זה משלים את מחזור חיי העובד ומאפשר לנהל יציאה מסודרת מול HR, ביטחון, אבטחת מידע, מחשוב ו-POC.</p><div class="manager-grid"><div class="field"><label>שם ומשפחה</label><input type="text" value="דנה כהן"></div><div class="field"><label>מס׳ תג</label><input type="text" value="83145"></div><div class="field"><label>ת״ז</label><input type="text" value="312345678"></div><div class="field"><label>מס׳ מחלקה</label><input type="text" value="401"></div><div class="field"><label>תאריך הפסקת עבודה</label><input type="date" value="2026-08-31"></div><div class="field"><label>טלפון נייד עובד</label><input type="text" value="052-5559876"></div><div class="field"><label>סיבת יציאה</label><select><option>הפסקת עבודה</option><option>חל״ת</option><option>שירות בחו״ל</option><option>אחר</option></select></div><div class="field"><label>הערות</label><input type="text" value="נדרש תדרוך סיום והחזרת ציוד"></div></div><div style="height:16px"></div><div class="timeline"><div class="timeline-item"><div class="timeline-dot"></div><div><strong>POC</strong><div class="meta">מהות החוב: ציוד פרויקט / הרשאות פתוחות</div></div><div><span class="status pending">ממתין</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>ממונה ביטחון</strong><div class="meta">חובה לתאם תדרוך סיום העסקה יום לפני העזיבה</div></div><div><span class="status ready">בתהליך</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>מנהל אבטחת מידע</strong><div class="meta">סגירת גישות וחשבונות פנימיים/חיצוניים</div></div><div><span class="status pending">ממתין</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>רכוש קבוע - מחשוב</strong><div class="meta">החזרת מחשב, מסך, אוזניות וטלפון</div></div><div><span class="status blocked">חסר ציוד</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>ממונה משאבי אנוש ביחידה</strong><div class="meta">אישור סגירה כולל</div></div><div><span class="status pending">ממתין</span></div></div></div></div></section>
+    </div>
+  </main>
+</div>
+<div id="guider" class="floating-guider">השלב הבא: פתיחת עובד</div>
+<div class="floating-bot-shell"><button id="botToggle" class="bot-toggle" type="button" aria-label="פתח את הצ'אט של הבוט" aria-expanded="false">🤖</button><div id="botPanel" class="floating-bot is-hidden"><input id="q" placeholder="שאל שאלה"><button class="button primary" style="width:100%;" id="askBtn">שאל</button><div id="a" style="margin-top:8px;font-size:13px;"></div></div></div>
+<script src="app.js"></script>
+</body>
+</html>
