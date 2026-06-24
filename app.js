@@ -928,14 +928,18 @@ qs("#askBtn").addEventListener("click", () => {
 fillDemoEmployeeDetails();
 qs("#roleSelect").value = "mis";
 
-/* ─── Mobile drawer ─── */
+/* ─── Fixed Mobile drawer ─── */
 (function initDrawer() {
   const toggle   = qs('#menuToggle');
   const sidebar  = document.querySelector('.sidebar');
   const overlay  = qs('#drawerOverlay');
   if (!toggle || !sidebar || !overlay) return;
 
-  function openDrawer() {
+  function openDrawer(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation(); // Stop event bubbling on touch screens
+    }
     sidebar.classList.add('drawer-open');
     overlay.classList.add('active');
     toggle.classList.add('open');
@@ -943,7 +947,11 @@ qs("#roleSelect").value = "mis";
     document.body.style.overflow = 'hidden';
   }
 
-  function closeDrawer() {
+  function closeDrawer(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     sidebar.classList.remove('drawer-open');
     overlay.classList.remove('active');
     toggle.classList.remove('open');
@@ -951,16 +959,23 @@ qs("#roleSelect").value = "mis";
     document.body.style.overflow = '';
   }
 
-  toggle.addEventListener('click', function() {
-    sidebar.classList.contains('drawer-open') ? closeDrawer() : openDrawer();
-  });
+  // Handle both click and mobile touchstart smoothly
+  ['click', 'touchstart'].forEach(eventType => {
+    toggle.addEventListener(eventType, function(e) {
+      sidebar.classList.contains('drawer-open') ? closeDrawer(e) : openDrawer(e);
+    }, { passive: false });
 
-  overlay.addEventListener('click', closeDrawer);
+    overlay.addEventListener(eventType, closeDrawer, { passive: false });
+  });
 
   // Close drawer when a nav item is tapped
   document.querySelectorAll('.nav-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      if (window.innerWidth <= 1200) closeDrawer();
+    ['click', 'touchstart'].forEach(eventType => {
+      btn.addEventListener(eventType, function(e) {
+        if (window.innerWidth <= 1200) {
+          closeDrawer(e);
+        }
+      });
     });
   });
 })();
