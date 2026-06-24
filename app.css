@@ -53,14 +53,30 @@ body {
   z-index: 1;
 }
 
+/* Base mobile styles (Mobile-First approach) */
 .sidebar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: -250px; /* Hidden off-screen by default */
+  width: 250px;
   height: 100vh;
-  padding: 22px 16px;
-  border-left: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(5, 10, 18, 0.94), rgba(10, 18, 33, 0.88));
-  backdrop-filter: blur(14px);
+  z-index: 9999; /* CRITICAL: Ensure it sits on top of all other elements */
+  transition: all 0.3s ease;
+}
+
+/* Class added via JavaScript when the burger menu is clicked */
+.sidebar.active {
+  left: 0; /* Brings it into view */
+}
+
+/* Desktop override */
+@media (min-width: 768px) {
+  .sidebar {
+    position: static;
+    left: 0;
+    width: 250px;
+    height: auto;
+  }
 }
 
 .brand {
