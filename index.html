@@ -75,7 +75,11 @@
   </aside>
   <main class="main">
     <div class="topbar">
-      <div class="row"><span class="chip live">● Live Demo</span><span class="chip ai">AI / GuidER</span><span class="chip wow">WOW UI</span><span class="chip">עובדציקל Employee Lifecycle</span><span class="chip hack">🏆 Hackathon 2026</span></div>
+      <div class="row">
+        <button class="hamburger" id="menuToggle" aria-label="פתח תפריט" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
+        <span class="chip live">● Live Demo</span><span class="chip ai">AI / GuidER</span><span class="chip wow">WOW UI</span><span class="chip">עובדציקל Employee Lifecycle</span><span class="chip hack">🏆 Hackathon 2026</span></div>
       <div class="row"><div class="avatar-card"><div class="avatar small avatar-photo-frame" data-avatar-role="manager" data-avatar-initial="מ" aria-label="תמונת מנהל"><div class="avatar-status"></div></div><div><div style="font-size:12px;color:var(--muted);">מנהל מגייס</div><strong style="font-size:13px;">Manager View</strong></div></div><button class="button primary" onclick="startDemoMode()">▶ Demo Mode</button><button class="button primary" onclick="startStoryMode()">🎬 Story Mode</button><button class="button secondary" onclick="stopAutoModes()">⏸ עצור</button><button class="button ghost" onclick="resetDemo()">↺ איפוס</button></div>
     </div>
     <div class="content">
@@ -83,6 +87,66 @@
         <div class="panel hero">
           <div><div class="kicker">Home Dashboard</div><h1>Control Tower לקליטה, פרודוקטיביות ויציאה</h1><p class="muted">Airflow-one מחברת בין מערכות, בקשות, מסמכים, חונכים, ציוד ואישורים — למסע עובד רציף מהיום הראשון ועד לתפקוד מלא.</p><div class="row" style="margin-top:18px;"><button class="button primary" onclick="go('manager')">המשך טיפול בדנה</button><button class="button secondary" onclick="go('workflow')">פתח Workflow</button><button class="button ghost" onclick="go('docs')">מרכז המסמכים</button></div></div>
           <div class="grid-2"><div class="stat-card glow"><strong>12</strong><span>עובדים בתהליך</span></div><div class="stat-card"><strong>4</strong><span>מתחילים השבוע</span></div><div class="stat-card"><strong>7</strong><span>בקשות פתוחות</span></div><div class="stat-card"><strong>2</strong><span>חסמים קריטיים</span></div></div>
+        </div>
+        <div class="panel">
+          <div class="kicker">Active Employees</div>
+          <h3 style="margin:0 0 16px;">עובדים פעילים בתהליך קליטה</h3>
+          <div class="grid-3">
+            <div class="emp-card">
+              <div class="emp-card-top">
+                <div class="emp-avatar" style="background:linear-gradient(135deg,#5cc8ff,#9d8bff)">ד</div>
+                <div class="emp-card-info">
+                  <strong>דנה כהן</strong>
+                  <div class="muted">מיישמת SAP • מטה מרכזי</div>
+                </div>
+                <span class="status ready">בתהליך</span>
+              </div>
+              <div class="emp-meta">מסי 83145 • תחילת: 01/07/2026</div>
+              <div class="emp-battery-wrap">
+                <div class="emp-battery-fill" style="width:78%;background:linear-gradient(90deg,#5cc8ffcc,#5cc8ff);box-shadow:0 0 10px #5cc8ff88"></div>
+                <span class="emp-battery-pct">78%</span>
+              </div>
+              <div class="pill-row" style="margin-top:10px;">
+                <span class="pill">Access 60%</span><span class="pill">Docs 40%</span><span class="pill">Training 20%</span>
+              </div>
+            </div>
+            <div class="emp-card">
+              <div class="emp-card-top">
+                <div class="emp-avatar" style="background:linear-gradient(135deg,#9d8bff,#2fd98a)">י</div>
+                <div class="emp-card-info">
+                  <strong>יוסי לוי</strong>
+                  <div class="muted">מפתח Full Stack • R&D מרכז</div>
+                </div>
+                <span class="status ready">בתהליך</span>
+              </div>
+              <div class="emp-meta">מסי 74231 • תחילת: 15/07/2026</div>
+              <div class="emp-battery-wrap">
+                <div class="emp-battery-fill" style="width:45%;background:linear-gradient(90deg,#ffc15ecc,#ffc15e);box-shadow:0 0 10px #ffc15e88"></div>
+                <span class="emp-battery-pct">45%</span>
+              </div>
+              <div class="pill-row" style="margin-top:10px;">
+                <span class="pill">Access 35%</span><span class="pill">Docs 55%</span><span class="pill">Training 0%</span>
+              </div>
+            </div>
+            <div class="emp-card">
+              <div class="emp-card-top">
+                <div class="emp-avatar" style="background:linear-gradient(135deg,#ff7a7a,#ffc15e)">מ</div>
+                <div class="emp-card-info">
+                  <strong>מיכל ברק</strong>
+                  <div class="muted">מנהלת פרויקט ERP • מטה מרכזי</div>
+                </div>
+                <span class="status pending">Pre-boarding</span>
+              </div>
+              <div class="emp-meta">מסי 91002 • תחילת: 01/08/2026</div>
+              <div class="emp-battery-wrap">
+                <div class="emp-battery-fill" style="width:12%;background:linear-gradient(90deg,#ff7a7acc,#ff7a7a);box-shadow:0 0 10px #ff7a7a88"></div>
+                <span class="emp-battery-pct">12%</span>
+              </div>
+              <div class="pill-row" style="margin-top:10px;">
+                <span class="pill">Access 10%</span><span class="pill">Docs 15%</span><span class="pill">Training 0%</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="grid-3">
           <div class="panel"><div class="kicker">Spotlight</div><div class="avatar-wrap" style="margin-bottom:12px;"><div class="avatar large avatar-photo-frame" data-avatar-role="employee" data-avatar-initial="ד" aria-label="תמונת העובדת דנה כהן"><div class="avatar-status"></div></div><div><h3 style="margin-bottom:4px;">דנה כהן</h3><div class="muted">מספר עובד 83145 • מיישמת SAP • התחלה: 01/07/2026</div></div></div><div class="row"><span class="pill">Access 60%</span><span class="pill">Docs 40%</span><span class="pill">Training 20%</span></div><div style="height:14px"></div><button class="button primary" onclick="go('manager')">פתח סביבת מנהל</button></div>
@@ -94,10 +158,7 @@
           <div class="panel"><div class="kicker">Open Requests</div><ul><li><a class="link" href="#/integrations/activeone/AO-10234">AO-10234</a> – ActiveOne – יוזר פנימי</li><li><a class="link" href="#/integrations/airnow/AN-88421">AN-88421</a> – Airnow – מחשב פנימי</li><li><a class="link" href="#/integrations/security/SEC-5512">SEC-5512</a> – Security – אישור כניסה זמני</li></ul></div>
           <div class="panel"><div class="kicker">Required Documents</div><ul><li><a class="link" href="#/documents/DOC-001">טופס קליטת עובד חדש</a></li><li><a class="link" href="#/documents/DOC-002">טופס הדרכת בטיחות</a></li><li><a class="link" href="#/documents/DOC-004">פרטי ספק / כתובת</a></li></ul></div>
         </div>
-        <div class="panel">
-          <div class="kicker">Active Employees</div>
-          <h3 style="margin:0 0 16px;">עובדים פעילים בתהליך קליטה</h3>
-          <div class="grid-3">
+        <div class="grid-3">
             <div class="emp-card">
               <div class="emp-card-top">
                 <div class="emp-avatar" style="background:linear-gradient(135deg,#5cc8ff,#9d8bff)">ד</div>
@@ -204,6 +265,7 @@
     </div>
   </main>
 </div>
+<div id="drawerOverlay" class="drawer-overlay" aria-hidden="true"></div>
 <div id="guider" class="floating-guider">השלב הבא: פתיחת עובד</div>
 <div class="floating-bot-shell"><button id="botToggle" class="bot-toggle" type="button" aria-label="פתח את הצ'אט של הבוט" aria-expanded="false">🤖</button><div id="botPanel" class="floating-bot is-hidden"><input id="q" placeholder="שאל שאלה"><button class="button primary" style="width:100%;" id="askBtn">שאל</button><div id="a" style="margin-top:8px;font-size:13px;"></div></div></div>
 <script src="app.js"></script>

@@ -927,6 +927,43 @@ qs("#askBtn").addEventListener("click", () => {
 });
 fillDemoEmployeeDetails();
 qs("#roleSelect").value = "mis";
+
+/* ─── Mobile drawer ─── */
+(function initDrawer() {
+  const toggle   = qs('#menuToggle');
+  const sidebar  = document.querySelector('.sidebar');
+  const overlay  = qs('#drawerOverlay');
+  if (!toggle || !sidebar || !overlay) return;
+
+  function openDrawer() {
+    sidebar.classList.add('drawer-open');
+    overlay.classList.add('active');
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    sidebar.classList.remove('drawer-open');
+    overlay.classList.remove('active');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', function() {
+    sidebar.classList.contains('drawer-open') ? closeDrawer() : openDrawer();
+  });
+
+  overlay.addEventListener('click', closeDrawer);
+
+  // Close drawer when a nav item is tapped
+  document.querySelectorAll('.nav-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (window.innerWidth <= 1200) closeDrawer();
+    });
+  });
+})();
 handleRoleChange();
 // Pre-complete first 6 of 8 steps so progress renders as 75% (teal zone)
 workflow.slice(0, 6).forEach(function(s) { s.status = "הושלם"; });
