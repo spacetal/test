@@ -1301,13 +1301,98 @@ h4 {
   pointer-events: none;
 }
 
+/* ─── Optimized Responsive Drawer ─── */
 @media (max-width: 1200px) {
   .app {
     grid-template-columns: 1fr;
   }
 
+  /* Structural side drawer layout styles */
   .sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Hidden off-screen right */
+    left: auto;
+    width: min(280px, 80vw);
+    height: 100vh;
+    z-index: 8000;
+    overflow-y: auto;
+    padding: 24px 16px;
+    background: linear-gradient(180deg, #050a12, #0a1221);
+    border-left: 1px solid var(--line);
+    border-right: none;
+    box-shadow: -10px 0 40px rgba(2, 7, 18, 0.6);
+    transition: transform 0.3s var(--ease);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Instantly slides the dashboard context into view */
+  .sidebar.drawer-open {
+    transform: translateX(-300px);
+  }
+
+  /* Responsive screen overlay shadow background */
+  .drawer-overlay {
     display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 7999;
+    background: rgba(2, 7, 18, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .drawer-overlay.active {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Hamburger structure wrapper styling */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    background: rgba(15, 26, 48, 0.85);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    cursor: pointer;
+    z-index: 8500;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.2s ease;
+  }
+
+  .hamburger:hover {
+    background: rgba(92, 200, 255, 0.15);
+  }
+
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text);
+    transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+
+  /* CSS Transformation morphing into an Close 'X' symbol */
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Top-bar padding correction so page headers aren't clipped by the floating hamburger button */
+  .topbar {
+    padding-right: 70px; 
   }
 }
 
